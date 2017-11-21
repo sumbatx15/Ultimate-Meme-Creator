@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="lib/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Ultimate Meme Creator</title>
+</head>
+
+<body onload="init()">
+    <div id="top" class="container">
+        <header>
+            <nav>
+                <ul class="left">
+                    <li>portfolio</li>
+                    <li>about</li>
+                </ul>
+                <div class="logo">
+                    <img src="img/logo.png" onmouseover="humpingTed(this)" alt="">
+                    <img class="ted" src="https://i.giphy.com/media/Nxhqtjqw1y5os/giphy.webp" width="50" height="50" onmouseout="removeHumpingTed(this)">
+                    <div class="triangle"></div>
+                </div>
+                <ul class="right">
+                    <li>blog</li>
+                    <li>get in touch</li>
+                </ul>
+            </nav>
+        </header>
+        <div class="content">
+            <div class="editor">
+                <div class="studio">
+                    <div class="canv-container">
+                        <!-- TODO Add modify buttons under the inputs and give them low opacity -->
+                        <input spellcheck="false" onmousedown="dragElement(this)" class="drag upper" onkeyup="fillUpperCanvas(this)" type="text">
+                        <input spellcheck="false" onmousedown="dragElement(this)" class="drag lower" onkeyup="fillLowerCanvas(this)" type="text">
+                        <canvas width="780" height="516"></canvas>
+                    </div>
+                    <div class="editor-container">
+                        <input class="side-upper" placeholder="Add upper text..." onkeyup="fillUpperCanvas(this)" type="text">
+                        <div class="url">
+                            <input type="text" placeholder="Enter url...">
+                            <button onclick="useUrl(0)">Use url</button>
+                        </div>
+                        <input class="side-lower" placeholder="Add lower text..." onkeyup="fillLowerCanvas(this)" type="text">
+                        <div class="align-container">
+                            <button onclick="align('left')"><i class="fa fa-align-left" aria-hidden="true"></i></button>
+                            <button onclick="align('center')"><i class="fa fa-align-center" aria-hidden="true"></i></button>
+                            <button onclick="align('right')"><i class="fa fa-align-right" aria-hidden="true"></i></button>                           
+                            <button onclick="changeFontSize(8)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button onclick="changeFontSize(-8)"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                            <div class="color-container">
+                                 <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                                <input type="color" style="border:none" onchange="changeColor(this.value)">
+                            </div>
+                        </div>
+                        <div class="text-shadow">
+                            <input id="shadow" type="checkbox" onchange="toggleShadow()">
+                            <label for="shadow">Text shadow (on/off)</label>
+                        </div>
+
+                        <select class="fonts" onchange="changeFont(this.value)">
+                          <option value="Arial" >Ariel</option>
+                          <option value="Serif">Serif</option>
+                        </select>
+                        <a href="#" onclick="downloadImg(this)"><button class="download"><i class="fa fa-download" aria-hidden="true"></i></button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="locate-img">
+                <div class="url-container">
+                    <p>Pick a picture or use url</p>
+                    <input class="url" type="text" placeholder="Enter url...">
+                    <button onclick="useUrl(1)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                </div>
+                <div class="search-box">
+                    <p>Search by keyword</p>
+                    <input type="search" placeholder="Search for something.." onkeyup="filterWords(this.value)">
+                </div>
+                <div class="keywords-container">
+                    <div class="keywords">
+
+                    </div>
+                </div>
+            </div>
+            <section class="gallery">
+            </section>
+        </div>
+    </div>
+    <div id="about" class="about-continer">
+        <section class="about">
+            <div class="programmer-info">
+                <h2>Sumbat Tadevosian</h2>
+                <p class="sub-info">Programmer & Designer</p>
+                <div class="programmer-pic">
+                    <img src="https://i.pinimg.com/736x/2e/df/15/2edf159e206935cf206e5a09eda8bfec--hipster-beard-beard-tattoo.jpg" alt="">
+                </div>
+                <p class="programmer-about">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam neque eum animi aliquid eaque veritatis voluptas eligendi doloribus tempore error voluptatem quia dolorem, ipsum, repellendus facere, harum impedit suscipit molestiae.</p>
+            </div>
+            <div class="programmer-info">
+                <h2>Moshiko Levi</h2>
+                <p class="sub-info">Programmer & Designer</p>
+                <div class="programmer-pic">
+                    <img src="https://www.vintandyork.com/content/wp-content/uploads/2015/09/browline-hipster-eyeglasses.jpg" alt="">
+                </div>
+                <p class="programmer-about">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam neque eum animi aliquid eaque veritatis voluptas eligendi doloribus tempore error voluptatem quia dolorem, ipsum, repellendus facere, harum impedit suscipit molestiae.</p>
+            </div>
+        </section>
+    </div>
+    <footer id="footer">
+        <section class="get-in-touch">
+            <form action="">
+                <input type="text" placeholder="Name (Required)">
+                <input type="text" placeholder="Email (Required)">
+                <input type="text" placeholder="Subject">
+                <textarea placeholder="Write your message here..."></textarea>
+                <button>Send</button>
+            </form>
+        </section>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/smartCanvas.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/testing.js"></script>
+</body>
+
+</html>
