@@ -99,6 +99,7 @@ ul.left {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    padding-left: 0px;
 }
 
 ul.right {
